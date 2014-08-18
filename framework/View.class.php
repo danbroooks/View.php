@@ -21,8 +21,8 @@ class View {
 			if ($this->path) {
 
 				return $this->loadTemplateFile()
-					// ->evaluateConditions()
-					// ->evaluateControls()
+					->evaluateConditions()
+					->evaluateControls()
 					->injectVariables()
 					->loadIncludes()
 					->getRenderedTemplate();
@@ -50,29 +50,32 @@ class View {
 	}
 
 	private function evaluateConditions() {
-		// $overflow = 0;
-		// while(preg_match('/<% if \$([a-zA-Z0-9_]+) %>/i', $this->renderedTemplate, $cond)) {
-		// 	$match = $cond[0];
-		// 	$template = $cond[1];
-		// 	// $include = '';
+		$overflow = 0;
+		while(preg_match('/<% if \$([a-zA-Z0-9_]+) %>/i', $this->renderedTemplate, $cond)) {
+			$match = $cond[0];
+			$condition = $cond[1];
 
-		// 	// if ($this->findTemplate($template)) {
-		// 	// 	$view = new View($template);
-		// 	// 	$include = $view->render($this->variables);
-		// 	// } else if (!self::$silent){
-		// 	// 	dd('Could not find template '. $template);
-		// 	// }
+			// TODO
 
-		// 	// $this->renderedTemplate = str_replace($match, $include, $this->renderedTemplate);
-
-		// 	$overflow++;
-		// 	if ($overflow > 2000) break;
-		// };
+			$overflow++;
+			if ($overflow > 2000) break;
+		};
 
 		return $this;
 	}
 
 	private function evaluateControls() {
+		$overflow = 0;
+		while(preg_match('/<% loop \$([a-zA-Z0-9_]+) %>/i', $this->renderedTemplate, $control)) {
+			$match = $control[0];
+			$iterator = $control[1];
+
+			// TODO
+
+			$overflow++;
+			if ($overflow > 2000) break;
+		};
+
 		return $this;
 	}
 
@@ -86,8 +89,8 @@ class View {
 			if ($this->findTemplate($template)) {
 				$view = new View($template);
 				$include = $view->render($this->variables);
-			// } else if (!self::$silent){
-			// 	dd('Could not find template '. $template);
+			} else if (!self::$silent){
+				dd('Could not find template '. $template);
 			}
 
 			$this->renderedTemplate = str_replace($match, $include, $this->renderedTemplate);

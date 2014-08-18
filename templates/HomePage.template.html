@@ -2,3 +2,17 @@
 		<h1>$Title</h1>
 
 		$Content
+
+		<% if $List %>
+		
+		<ul class="list-group">
+
+			<% loop $List %>
+
+			<li class="list-group-item">$Name</li>
+
+			<% end_loop %>
+
+		</ul>
+		
+		<% end_if %>
