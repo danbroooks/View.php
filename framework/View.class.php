@@ -109,7 +109,11 @@ class View {
 	}
 
 	private function glob($glob) {
-		return array_merge(glob("./**/$glob"), glob("./$glob"));
+		$files = glob($glob); 
+		foreach (glob(dirname($glob).'/*') as $dir) {
+			$files = array_merge($files, $this->glob($dir.'/'.basename($glob)));
+		}
+		return $files;
 	}
 }
 
