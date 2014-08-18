@@ -1,13 +1,9 @@
 <?php
 
-require('framework/start/Bootstrapper.php');
+require('framework/Bootstrapper/Start.php');
 
 Bootstrapper::init();
 
-function dd($var){
-	var_dump($var);
-	die;
-}
 
 $view = new View('Layout');
 

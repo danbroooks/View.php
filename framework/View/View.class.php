@@ -104,16 +104,7 @@ class View {
 
 	private function findTemplate($template = null){
 		$template = $template ? $template : $this->template;
-		$find = $this->glob($template.'.template.html');
-		return count($find) ? $find[0] : false;
-	}
-
-	private function glob($glob) {
-		$files = glob($glob); 
-		foreach (glob(dirname($glob).'/*') as $dir) {
-			$files = array_merge($files, $this->glob($dir.'/'.basename($glob)));
-		}
-		return $files;
+		return Glob::find($template.'.template.html')->first();
 	}
 }
 
