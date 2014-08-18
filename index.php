@@ -5,10 +5,34 @@ require('framework/Bootstrapper/Start.php');
 Bootstrapper::init();
 
 
-$view = new View('Layout');
+// View only example
 
-echo $view->render(array(
-	"Template" => "HomePage",
-	"Title" => "Templating",
-	"Content" => "<p>Hello</p><p>World</p>"
-));
+// $view = new View('Layout');
+
+// echo $view->render(array(
+// 	"Template" => "HomePage",
+// 	"Title" => "Templating",
+// 	"Content" => "<p>Hello</p><p>World</p>"
+// ));
+
+
+
+
+
+// View + Model
+
+// $page = new Page('HomePage', 'Templating', '<p>Hello World</p>');
+// $layout = new View('Layout');
+
+// echo $layout->render($page->toArray());
+
+
+
+
+
+
+// Controller + View + Model
+
+Router::add_route('/', 'PageController');
+Router::route();
+
