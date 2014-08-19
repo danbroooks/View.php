@@ -17,18 +17,15 @@ class Router {
 		$url = $request->url;
 
 		if (self::hasRoute($url)) {
-			$model = Page::get($url);
-
 			$controllerClass = $routes[$url];
 			$controller = new $controllerClass;
 
-			$response = $controller->handleRequest($request, $model);
-			echo $response->body;
+			$response = $controller->handleRequest($request);
 		} else {
-			echo 404;
+			$response = Response::make("No route found");
 		}
 
-		die;
+		$response->output();
 	}
 
 	private static function hasRoute($route) {

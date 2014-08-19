@@ -26,6 +26,8 @@ class Page extends DataObject {
 		switch($url) {
 			case '/':
 				return new Page('HomePage', 'Templating', '<p>Hello World</p>');
+			default: 
+				return new Page('ErrorPage', 'Page not found', '<p>404 page not found</p>');
 		}
 	}
 

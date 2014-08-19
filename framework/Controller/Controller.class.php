@@ -2,14 +2,19 @@
 
 class Controller {
 
-	protected $model;
-	protected $response;
+	public $model;
 
-	public function handleRequest($request, $model) {
-		$this->model = $model;
+	public function __construct() {
 		$this->response = new Response;
-		$this->response->body = $this->renderView();
-		return $this->response;
+	}
+
+	public function handleRequest(Request $request) {
+		if ($this->model) {
+			$this->response->setBody($this->renderView());
+			return $this->response;
+		} else {
+			return Response::make("Error: no model");
+		}
 	}
 
 	protected function renderView() {
