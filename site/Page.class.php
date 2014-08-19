@@ -23,11 +23,18 @@ class Page extends DataObject {
 
 	// static methods to simulate ORM database interaction
 	public static function get($url) {
-		switch($url) {
-			case '/':
-				return new Page('HomePage', 'Templating', '<p>Hello World</p>');
-			default: 
-				return new Page('ErrorPage', 'Page not found', '<p>404 page not found</p>');
+		if(Database::active()) {
+
+			return new Page('ErrorPage', 'Database ORM not implemented yet', '<p>Go fetch.</p>');
+
+		} else {
+
+			switch($url) {
+				case '/':
+					return new Page('HomePage', 'Templating', '<p>Hello World</p>');
+				default: 
+					return new Page('ErrorPage', 'Page not found', '<p>404 page not found</p>');
+			}
 		}
 	}
 

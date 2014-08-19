@@ -10,8 +10,6 @@ class Bootstrapper {
 			->enableErrors()
 			->configureAutoloader()
 		;
-		
-		require('site/_site.conf.php');
 	}
 
 	public static function inst() {
@@ -23,7 +21,7 @@ class Bootstrapper {
 	}
 
 	public function run() {
-		require('../site/_config.php');
+		require('../site/_site.conf.php');
 		Router::route();
 	}
 
@@ -52,7 +50,7 @@ class Bootstrapper {
 	}
 
 	public static function configureFromEnv() {
-		require('_env.conf.php');
+		require('../_env.conf.php');
 
 		Database::configure(array(
 			'host' => DATABASE_SERVER,
