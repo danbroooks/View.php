@@ -1,5 +1,7 @@
 <?php
 
+Bootstrapper::configureFromEnv();
+
 
 // View only example
 

@@ -1,3 +1,5 @@
 
 composer.lock
 *.sublime-workspace
+
+_env.conf.php

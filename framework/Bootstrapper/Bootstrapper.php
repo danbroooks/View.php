@@ -8,7 +8,10 @@ class Bootstrapper {
 
 		return self::inst()
 			->enableErrors()
-			->configureAutoloader();
+			->configureAutoloader()
+		;
+		
+		require('site/_site.conf.php');
 	}
 
 	public static function inst() {
@@ -46,6 +49,17 @@ class Bootstrapper {
 	private function getClassPath($class) {
 		require_once(__DIR__."/../FileSystem/Glob.class.php");
 		require_once(Glob::find($class.'.class.php')->first());
+	}
+
+	public static function configureFromEnv() {
+		require('_env.conf.php');
+
+		Database::configure(array(
+			'host' => DATABASE_SERVER,
+			'user' => DATABASE_USERNAME,
+			'password' => DATABASE_PASSWORD,
+			'dbname' => DATABASE_NAME
+		));
 	}
 
 }
