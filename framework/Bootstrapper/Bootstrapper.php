@@ -11,7 +11,7 @@ class Bootstrapper {
 			->configureAutoloader();
 	}
 
-	public function inst() {
+	public static function inst() {
 		if (!self::$instance) {
 			self::$instance = new Bootstrapper();
 		}

@@ -12,19 +12,28 @@ class Router {
 	}
 
 	public static function route() {
-		$url = $_SERVER['REQUEST_URI'];
 		$routes = self::$routes;
+		$request = new Request;
+		$url = $request->url;
 
-		if (array_key_exists($url, $routes)) {
+		if (self::hasRoute($url)) {
+			$model = Page::get($url);
+
 			$controllerClass = $routes[$url];
-			$controller = new $controllerClass();
-			$controller->invoke($url);
+			$controller = new $controllerClass;
+
+			$response = $controller->handleRequest($request, $model);
+			echo $response->body;
 		} else {
 			echo 404;
-			die;
 		}
+
+		die;
 	}
 
+	private static function hasRoute($route) {
+		return array_key_exists($route, self::$routes);
+	}
 }
 
 
