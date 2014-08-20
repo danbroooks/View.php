@@ -7,8 +7,8 @@ class Bootstrapper {
 	public static function init(){
 
 		return self::inst()
-			->enableErrors()
 			->configureAutoloader()
+			->enableErrors()
 		;
 	}
 
@@ -29,6 +29,12 @@ class Bootstrapper {
 		ini_set('display_startup_errors',1);
 		ini_set('display_errors',1);
 		error_reporting(-1);
+
+		$errorHandler = new ErrorHandler;
+		// register_shutdown_function(array($errorHandler, "handleFatalError"));
+		set_error_handler(array($errorHandler, "handleError"));
+		set_exception_handler(array($errorHandler, "handleException"));
+		
 		return $this;
 	}
 
@@ -46,11 +52,11 @@ class Bootstrapper {
 
 	private function getClassPath($class) {
 		require_once(__DIR__."/../FileSystem/Glob.class.php");
-		require_once(Glob::find($class.'.class.php')->first());
+		return Glob::find($class.'.class.php')->first();
 	}
 
 	public static function configureFromEnv() {
-		require('../_env.conf.php');
+		require('./../_env.conf.php');
 
 		Database::configure(array(
 			'host' => DATABASE_SERVER,
@@ -61,4 +67,3 @@ class Bootstrapper {
 	}
 
 }
-

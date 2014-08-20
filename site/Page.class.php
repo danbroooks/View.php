@@ -2,40 +2,17 @@
 
 class Page extends DataObject {
 
-	private $layout;
-	private $title;
-	private $content;
+	public static $fields = array(
+		"Title" => null,
+		"Content" => null
+	);
 
-	public function __construct($layout, $title, $content) {
-		$this->layout = $layout;
-		$this->title = $title;
-		$this->content = $content;
-	}
-
-	public function toArray() {
+	protected static function noDBGet() {
 		return array(
-			"Template" => $this->layout,
-			"Title" => $this->title,
-			"Content" => $this->content
+			"Template" => "Page",
+			"Title" => "Contact us",
+			"Content" => "<p>Contact us!</p>"
 		);
-	}
-
-
-	// static methods to simulate ORM database interaction
-	public static function get($url) {
-		if(Database::active()) {
-
-			return new Page('ErrorPage', 'Database ORM not implemented yet', '<p>Go fetch.</p>');
-
-		} else {
-
-			switch($url) {
-				case '/':
-					return new Page('HomePage', 'Templating', '<p>Hello World</p>');
-				default: 
-					return new Page('ErrorPage', 'Page not found', '<p>404 page not found</p>');
-			}
-		}
 	}
 
 }
