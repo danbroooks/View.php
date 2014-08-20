@@ -6,6 +6,7 @@ class Glob {
 
 	public static function find($glob) {
 		$inst = new Glob();
+		$glob = '../'.$glob;
 		return $inst->search($glob);
 	}
 

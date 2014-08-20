@@ -6,7 +6,7 @@ class Bootstrapper {
 
 	public static function init(){
 
-		self::inst()
+		return self::inst()
 			->enableErrors()
 			->configureAutoloader();
 	}
@@ -17,6 +17,11 @@ class Bootstrapper {
 		}
 
 		return self::$instance;
+	}
+
+	public function run() {
+		require('../site/_config.php');
+		Router::route();
 	}
 
 	private function enableErrors() {

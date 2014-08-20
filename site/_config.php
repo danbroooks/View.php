@@ -26,7 +26,6 @@
 
 
 
-
 // Controller + View + Model
 
 Router::add_route('/contact-us', 'PageController');
